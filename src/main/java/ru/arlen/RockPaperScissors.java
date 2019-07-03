@@ -9,83 +9,97 @@ public class RockPaperScissors {
     private int userScore;
     private int computerScore;
     private int numberOfGames;
+    private MyConsole console;
 
-    private RockPaperScissors() {
-        user = new User();
-        computer = new Computer();
+    public RockPaperScissors() {
+        this(null);
+    }
+
+    RockPaperScissors(Move move) {
+        console = new MyConsole();
+        this.user = new User(console);
+        computer = new Computer(move);
         userScore = 0;
         computerScore = 0;
         numberOfGames = 0;
     }
 
-    private void run() {
-        System.out.println("ROCK, PAPER, SCISSORS!");
+    public void run() {
+        console.writeLineLn("ROCK, PAPER, SCISSORS!");
         Move userMove = user.getMove();
         Move computerMove = computer.getMove();
-        System.out.println("\nYour move - " + userMove + ", computer move - " + computerMove + ".");
+        console.writeLineLn("\nYour move - " + userMove + ", computer move - " + computerMove + ".");
 
         int compareMoves = userMove.compareMoves(computerMove);
         switch (compareMoves) {
-            case 0: // Tie
-                System.out.println("Tie!");
-                break;
-            case 1: // Player wins
-                System.out.println(userMove + " beats " + computerMove + ". You win!");
-                userScore++;
-                break;
-            case -1: // Player loses
-                System.out.println(computerMove + " beats " + userMove + ". You lose.");
-                computerScore++;
-                break;
+        case 0: // Tie
+            console.writeLineLn("Tie!");
+            break;
+        case 1: // Player wins
+            console.writeLineLn(userMove + " beats " + computerMove + ". You win!");
+            userScore++;
+            break;
+        case -1: // Player loses
+            console.writeLineLn(computerMove + " beats " + userMove + ". You lose.");
+            computerScore++;
+            break;
         }
         numberOfGames++;
 
         if (user.playAgain()) {
-            System.out.println();
+            console.writeLineLn("\n");
             run();
         } else {
             printGameStats();
         }
     }
 
+    /**
+     * Displays game statistics.
+     *
+     * @return move
+     */
     private void printGameStats() {
         int wins = userScore;
         int losses = computerScore;
         int ties = numberOfGames - userScore - computerScore;
 
         // Print line
-        System.out.print("+");
+        console.writeLine("+");
         printStars(49);
-        System.out.println("+");
+        console.writeLineLn("+");
 
         // Print table head
-        System.out.printf("|  %6s  |  %6s  |  %6s  |  %12s  |\n", "WIN", "LOSE", "TIE", "TOTAL GAMES");
+        console.writeLinef("|  %6s  |  %6s  |  %6s  |  %12s  |\n", "WIN", "LOSE", "TIE", "TOTAL GAMES");
 
         // Print line
-        System.out.print("|");
+        console.writeLine("|");
         printStars(10);
-        System.out.print("+");
+        console.writeLine("+");
         printStars(10);
-        System.out.print("+");
+        console.writeLine("+");
         printStars(10);
-        System.out.print("+");
+        console.writeLine("+");
         printStars(16);
-        System.out.println("+");
+        console.writeLineLn("+");
 
         // Print values
-        System.out.printf("|  %6d  |  %6d  |  %6d  |  %12d  |\n", wins, losses, ties, numberOfGames);
+        console.writeLinef("|  %6d  |  %6d  |  %6d  |  %12d  |\n", wins, losses, ties, numberOfGames);
 
         // Print line
-        System.out.print("+");
+        console.writeLine("+");
         printStars(49);
-        System.out.println("+");
+        console.writeLineLn("+");
     }
 
     private void printStars(int i) {
         String repeatedStar = new String(new char[i]).replace('\0', '*');
-        System.out.print(repeatedStar);
+        console.writeLine(repeatedStar);
     }
 
+    /**
+     * Game entry point.
+     */
     public static void main(String[] args) {
         new RockPaperScissors().run();
     }

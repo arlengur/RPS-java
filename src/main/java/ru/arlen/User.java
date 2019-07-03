@@ -1,40 +1,50 @@
 package ru.arlen;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
-
 /**
  * @author satovritti
+ * 
+ *         User moves
  */
 public class User {
-    private Scanner inputScanner;
+    MyConsole console;
 
-    public User() {
-        inputScanner = new Scanner(System.in);
+    User(MyConsole cons) {
+        console = cons;
     }
 
+    /**
+     * Gets user move.
+     *
+     * @return move
+     */
     public Move getMove() {
         try {
-            System.out.printf("1 - %s\n2 - %s\n3 - %s\nInput item number:", Move.ROCK, Move.SCISSORS, Move.PAPER);
-            int input = new Scanner(System.in).nextInt();
+            console.writeLinef("1 - %s\n2 - %s\n3 - %s\nInput item number:", Move.ROCK, Move.SCISSORS, Move.PAPER);
+            String in = console.readLine();
+            int input = Integer.parseInt(in);
 
             if (input < 1 || input > 3) {
-                System.out.println("Incorrect input. Try again.");
+                console.writeLineLn("Incorrect input. Try again.\n");
                 return getMove();
             }
             return Move.values()[input - 1];
-        } catch (InputMismatchException e) {
-            System.out.println("Incorrect input. Try again.");
+        } catch (NumberFormatException e) {
+            console.writeLineLn("Incorrect input. Try again.\n");
             return getMove();
         }
     }
 
+    /**
+     * Asks user for a new game.
+     *
+     * @return user's decision
+     */
     public boolean playAgain() {
-        System.out.print("Play again? (Y/N) ");
-        String userInput = inputScanner.nextLine();
-        userInput = userInput.toUpperCase();
+        console.writeLine("Play again? (Y/N)");
+        String userInput = console.readLine();
+        userInput = userInput.trim().toUpperCase();
         if (userInput.charAt(0) != 'Y' && userInput.charAt(0) != 'N') {
-            System.out.println("Incorrect input. Try again.");
+            console.writeLineLn("Incorrect input. Try again.");
             return playAgain();
         }
         return userInput.charAt(0) == 'Y';

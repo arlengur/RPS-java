@@ -1,14 +1,15 @@
 package ru.arlen;
+
 /**
  * @author satovritti
  *
- * Player moves
+ *         Player moves
  */
 public enum Move {
     ROCK, SCISSORS, PAPER;
 
     /**
-     * Определение победы, поражения или ничьи.
+     * Compare moves to determine victory, loss or tie.
      *
      * @param otherMove the move against which the current
      * @return 1 - current move wins, -1 - otherMove wins, 0 - tie
@@ -19,14 +20,14 @@ public enum Move {
             return 0;
 
         switch (this) {
-            case ROCK:
-                return (otherMove == SCISSORS ? 1 : -1);
-            case PAPER:
-                return (otherMove == ROCK ? 1 : -1);
-            case SCISSORS:
-                return (otherMove == PAPER ? 1 : -1);
-            default:
-                return 0;
+        case ROCK:
+            return (otherMove == SCISSORS ? 1 : -1);
+        case PAPER:
+            return (otherMove == ROCK ? 1 : -1);
+        case SCISSORS:
+            return (otherMove == PAPER ? 1 : -1);
+        default:
+            return 0;
         }
     }
 }
