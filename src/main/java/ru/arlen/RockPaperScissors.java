@@ -1,5 +1,8 @@
 package ru.arlen;
 
+import java.io.InputStream;
+import java.io.OutputStream;
+
 /**
  * @author satovritti
  */
@@ -17,6 +20,15 @@ public class RockPaperScissors {
 
     RockPaperScissors(Move move) {
         console = new MyConsole();
+        this.user = new User(console);
+        computer = new Computer(move);
+        userScore = 0;
+        computerScore = 0;
+        numberOfGames = 0;
+    }
+
+    RockPaperScissors(Move move, InputStream in, OutputStream out) {
+        console = new MyConsole(in, out);
         this.user = new User(console);
         computer = new Computer(move);
         userScore = 0;

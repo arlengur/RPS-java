@@ -1,6 +1,7 @@
 package ru.arlen;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 /**
  * MyConsole
@@ -10,11 +11,16 @@ public class MyConsole {
     private PrintStream w;
 
     MyConsole() {
-        r = new BufferedReader(new InputStreamReader(System.in));
+        this(System.in, System.out);
+    }
+
+    MyConsole(InputStream in, OutputStream out) {
+        r = new BufferedReader(new InputStreamReader(in));
         try {
-            w = new PrintStream(System.out, true, "UTF-8");
+            w = new PrintStream(out, true, StandardCharsets.UTF_8.name());
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            // The default encoding should always be available
+            throw new Error(e);
         }
     }
 
