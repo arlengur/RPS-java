@@ -1,4 +1,4 @@
-package ru.arlen;
+package ru.arlen.core;
 
 import static org.junit.Assert.assertTrue;
 

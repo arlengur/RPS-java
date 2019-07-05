@@ -1,11 +1,9 @@
-package ru.arlen;
+package ru.arlen.core;
 
 import java.util.Random;
 
 /**
- * @author satovritti
- * 
- *         Computer moves
+ * Computer moves
  */
 public class Computer {
     private Move move;

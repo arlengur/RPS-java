@@ -1,12 +1,12 @@
-package ru.arlen;
+package ru.arlen.core;
 
 import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * @author satovritti
+ * Main class of the RockPaperScissors game logic
  */
-public class RockPaperScissors {
+public class RockPaperScissors {    
     private User user;
     private Computer computer;
     private int userScore;
@@ -18,7 +18,7 @@ public class RockPaperScissors {
         this(null);
     }
 
-    RockPaperScissors(Move move) {
+    public RockPaperScissors(Move move) {
         console = new MyConsole();
         this.user = new User(console);
         computer = new Computer(move);
@@ -27,7 +27,7 @@ public class RockPaperScissors {
         numberOfGames = 0;
     }
 
-    RockPaperScissors(Move move, InputStream in, OutputStream out) {
+    public RockPaperScissors(Move move, InputStream in, OutputStream out) {
         console = new MyConsole(in, out);
         this.user = new User(console);
         computer = new Computer(move);
@@ -36,6 +36,9 @@ public class RockPaperScissors {
         numberOfGames = 0;
     }
 
+    /** 
+     * Starts the game.
+     */
     public void run() {
         console.writeLineLn("ROCK, PAPER, SCISSORS!");
         Move userMove = user.getMove();
