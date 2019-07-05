@@ -1,4 +1,4 @@
-package ru.arlen;
+package ru.arlen.core;
 
 import static org.junit.Assert.assertTrue;
 
@@ -12,7 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Unit test for RockPaperScissors.
+ * Unit tests for RockPaperScissors.
  */
 public class RockPaperScissorsTest {
     private ByteArrayOutputStream out;
@@ -49,49 +49,42 @@ public class RockPaperScissorsTest {
     public void testWinRockVsSc() {
         ByteArrayInputStream in = new ByteArrayInputStream("1\nn".getBytes());
         new RockPaperScissors(Move.SCISSORS, in, ps).run();
-        assertTrue("Result should be tie!", getString(out).contains("win"));
+        assertTrue("Result should be win!", getString(out).contains("ROCK beats SCISSORS. You win!"));
     }
 
     @Test
     public void testLoseRockVsPaper() {
         ByteArrayInputStream in = new ByteArrayInputStream("1\nn".getBytes());
         new RockPaperScissors(Move.PAPER, in, ps).run();
-        assertTrue("Result should be tie!", getString(out).contains("lose"));
+        assertTrue("Result should be lose!", getString(out).contains("PAPER beats ROCK. You lose."));
     }
 
     @Test
     public void testLosePaperVsRock() {
         ByteArrayInputStream in = new ByteArrayInputStream("3\nn".getBytes());
         new RockPaperScissors(Move.ROCK, in, ps).run();
-        assertTrue("Result should be tie!", getString(out).contains("win"));
+        assertTrue("Result should be win!", getString(out).contains("PAPER beats ROCK. You win!"));
     }
 
     @Test
     public void testLosePaperVsSc() {
         ByteArrayInputStream in = new ByteArrayInputStream("3\nn".getBytes());
         new RockPaperScissors(Move.SCISSORS, in, ps).run();
-        assertTrue("Result should be tie!", getString(out).contains("lose"));
+        assertTrue("Result should be lose!", getString(out).contains("SCISSORS beats PAPER. You lose."));
     }
 
     @Test
     public void testLoseScVsPaper() {
         ByteArrayInputStream in = new ByteArrayInputStream("2\nn".getBytes());
         new RockPaperScissors(Move.PAPER, in, ps).run();
-        assertTrue("Result should be tie!", getString(out).contains("win"));
+        assertTrue("Result should be win!", getString(out).contains("SCISSORS beats PAPER. You win!"));
     }
 
     @Test
     public void testLoseScVsRock() {
         ByteArrayInputStream in = new ByteArrayInputStream("2\nn".getBytes());
         new RockPaperScissors(Move.ROCK, in, ps).run();
-        assertTrue("Result should be tie!", getString(out).contains("lose"));
-    }
-
-    @Test
-    public void testPlayAgain() {
-        ByteArrayInputStream in = new ByteArrayInputStream("3\ny\n1\nn".getBytes());
-        new RockPaperScissors(Move.ROCK, in, ps).run();
-        assertTrue("Result should be tie!", getString(out).contains("*"));
+        assertTrue("Result should be lose!", getString(out).contains("ROCK beats SCISSORS. You lose."));
     }
 
     @Test
@@ -102,20 +95,18 @@ public class RockPaperScissorsTest {
     }
 
     @Test
+    public void testPlayAgain() {
+        ByteArrayInputStream in = new ByteArrayInputStream("3\ny\n1\nn".getBytes());
+        new RockPaperScissors(Move.ROCK, in, ps).run();
+        assertTrue("Result should be!", getString(out).contains("*"));
+    }
+
+    @Test
     public void testRandomValue() {
         ByteArrayInputStream in = new ByteArrayInputStream("1\nn".getBytes());
         System.setIn(in);
         System.setOut(ps);
         new RockPaperScissors(null).run();
-        assertTrue("Result should be tie!", getString(out).toLowerCase().contains("*"));
-    }
-
-    @Test
-    public void testConsole() {
-        ByteArrayInputStream in = new ByteArrayInputStream("1\nn".getBytes());
-        System.setIn(in);
-        System.setOut(null);
-        new RockPaperScissors(null).run();
-        assertTrue("Result should be tie!", getString(out).toLowerCase().contains("*"));
+        assertTrue("Result should be!", getString(out).contains("*"));
     }
 }

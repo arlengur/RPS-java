@@ -1,9 +1,7 @@
-package ru.arlen;
+package ru.arlen.core;
 
 /**
- * @author satovritti
- *
- *         Player moves
+ * Game moves
  */
 public enum Move {
     ROCK, SCISSORS, PAPER;

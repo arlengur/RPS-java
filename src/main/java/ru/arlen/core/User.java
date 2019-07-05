@@ -1,9 +1,7 @@
-package ru.arlen;
+package ru.arlen.core;
 
 /**
- * @author satovritti
- * 
- *         User moves
+ * User moves
  */
 public class User {
     MyConsole console;
@@ -19,7 +17,11 @@ public class User {
      */
     public Move getMove() {
         try {
-            console.writeLinef("1 - %s\n2 - %s\n3 - %s\nInput item number:", Move.ROCK, Move.SCISSORS, Move.PAPER);
+            console.writeLineLn("1 - ROCK");
+            console.writeLineLn("2 - SCISSORS");
+            console.writeLineLn("3 - PAPER");
+            console.writeLineLn("Input item number:");
+            console.writeLineLn(">");
             String in = console.readLine();
             int input = Integer.parseInt(in);
 
@@ -40,7 +42,8 @@ public class User {
      * @return user's decision
      */
     public boolean playAgain() {
-        console.writeLine("Play again? (Y/N)");
+        console.writeLineLn("Play again? (Y/N)");
+        console.writeLineLn(">");
         String userInput = console.readLine();
         userInput = userInput.trim().toUpperCase();
         if (userInput.charAt(0) != 'Y' && userInput.charAt(0) != 'N') {
